@@ -1,0 +1,6 @@
+.photo-cards__picture {
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  cursor: pointer;
+}
