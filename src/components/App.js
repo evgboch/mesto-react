@@ -1,39 +1,15 @@
-import avatar from "./images/default-user.png";
-// import './App.css';
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+
+// import avatar from "../images/default-user.png";
 
 function App() {
   return (
     <div className="page__container">
-      <header className="header page__header">
-        <div className="header__logo"></div>
-      </header>
-
-      <main className="content">
-        <section className="profile content__profile">
-          <div className="profile__info">
-            <div className="profile__avatar-container">
-              <img className="profile__avatar" src={avatar} alt="Образец аватара"/>
-              <div className="profile__avatar-overlay"></div>
-            </div>
-            <div className="profile__text-container">
-              <div className="profile__title-container">
-                <h1 className="profile__title">User</h1>
-                <button className="profile__edit-button" type="button"></button>
-              </div>
-              <p className="profile__subtitle">Info</p>
-            </div>
-          </div>
-          <button className="profile__add-button" type="button"></button>
-        </section>
-        <section className="photo-cards" aria-label="Фотокарточки">
-          <ul className="photo-cards__grid">
-          </ul>
-        </section>
-      </main>
-
-      <footer className="footer page__footer">
-        <p className="footer__copyright">© 2022 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
 
       <div className="popup popup_profile">
         <form noValidate className="popup__container popup__container_profile" name="popupProfileForm">
