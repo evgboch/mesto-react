@@ -9,3 +9,5 @@ function ImagePopup() {
     </div>
   );
 }
+
+export default ImagePopup;
