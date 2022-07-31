@@ -5,12 +5,11 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
-// import avatar from "../images/default-user.png";
-
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState();
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -24,10 +23,15 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
@@ -37,6 +41,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
 
@@ -82,7 +87,7 @@ function App() {
           <button className="popup__close-button popup__close-button_photo" type="button"></button>
         </div>
       </div> */}
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
     </div>
   );
 }
