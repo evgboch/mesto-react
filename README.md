@@ -6,4 +6,4 @@
 
 **Mesto Russia**
 
-* [Ссылка на проект Mesto Russia](https://evgboch.github.io/mesto/)
+* [Ссылка на проект Mesto Russia](https://github.com/evgboch/mesto)
