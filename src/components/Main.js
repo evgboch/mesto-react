@@ -5,27 +5,10 @@ import Card from "./Card";
 import avatar from "../images/default-user.png";
 
 function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
-  // const [userDescription, setUserDescription] = React.useState("");
-  // const [userAvatar, setUserAvatar] = React.useState("");
-  // const [userName, setUserName] = React.useState("");
   const [cards, setCards] = React.useState([]);
-
   const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
-    // api.getUserInfo()
-    //   .then((data) => {
-    //     setUserName(data.name);
-    //     setUserDescription(data.about);
-    //     setUserAvatar(data.avatar);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setUserName("User");
-    //     setUserDescription("Info");
-    //     setUserAvatar(avatar);
-    //   });
-
     api.getInitialCards()
       .then((data) => {
         setCards(data);
@@ -34,6 +17,16 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
         console.log(err);
       });
   }, []);
+
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    // api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    //     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    // });
+  }
 
   return(
     <main className="content">
@@ -57,7 +50,7 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
       <section className="photo-cards" aria-label="Фотокарточки">
         <ul className="photo-cards__grid">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={onCardClick} />
+            <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={handleCardLike} />
           ))}
         </ul>
       </section>

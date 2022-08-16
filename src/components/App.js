@@ -5,6 +5,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
 import ImagePopup from "./ImagePopup";
 
 function App() {
@@ -21,9 +22,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        // setUserName("User");
-        // setUserDescription("Info");
-        // setUserAvatar(avatar);
       });
   }, []);
 
@@ -50,6 +48,18 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleUpdateUser({name, about}) {
+    api.editUserInfo({name, about})
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    closeAllPopups();
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
@@ -64,7 +74,7 @@ function App() {
 
         <Footer />
 
-        <PopupWithForm name="profile" title="Редактировать профиль" buttonText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+        {/* <PopupWithForm name="profile" title="Редактировать профиль" buttonText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
           <label className="popup__field">
             <input id="name" className="popup__input popup__input_place_top" type="text" name="nameField" placeholder="Жак-Ив Кусто" required minLength="2" maxLength="40"/>
             <span id="name-error" className="popup__error"></span>
@@ -73,7 +83,9 @@ function App() {
             <input id="description" className="popup__input popup__input_place_bottom" type="text" name="descriptionField" placeholder="Исследователь океана" required minLength="2" maxLength="400"/>
             <span id="description-error" className="popup__error"></span>
           </label>
-        </PopupWithForm>
+        </PopupWithForm> */}
+
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
         <PopupWithForm name="card" title="Новое место" buttonText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
           <label className="popup__field">
