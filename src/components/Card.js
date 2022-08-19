@@ -27,7 +27,7 @@ function Card({card, onCardClick, onCardLike}) {
       <div className="photo-cards__title-container">
         <h2 className="photo-cards__title">{card.name}</h2>
         <div className="photo-cards__like-container">
-          <button className={cardLikeButtonClassName} type="button"></button>
+          <button className={cardLikeButtonClassName} type="button" onMouseDown={handleLikeClick}></button>
           <p className="photo-cards__like-counter">{card.likes.length}</p>
         </div>
       </div>
