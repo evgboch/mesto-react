@@ -6,6 +6,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import ImagePopup from "./ImagePopup";
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
-  function handleEditProfileClick() {
+  function handleEditProfileClick () {
     setIsEditProfilePopupOpen(true);
   }
 
@@ -50,6 +51,18 @@ function App() {
 
   function handleUpdateUser({name, about}) {
     api.editUserInfo({name, about})
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    closeAllPopups();
+  }
+
+  function handleUpdateAvatar({avatar}) {
+    api.editAvatar(avatar)
       .then((data) => {
         setCurrentUser(data);
       })
@@ -98,12 +111,14 @@ function App() {
           </label>
         </PopupWithForm>
 
-        <PopupWithForm name="avatar" title="Обновить аватар" buttonText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+
+        {/* <PopupWithForm name="avatar" title="Обновить аватар" buttonText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
           <label className="popup__field">
             <input id="avatar-link" className="popup__input popup__input_place_bottom" type="url" name="avatar-link" placeholder="Ссылка на картинку" required/>
             <span id="avatar-link-error" className="popup__error"></span>
           </label>
-        </PopupWithForm>
+        </PopupWithForm> */}
 
         <PopupWithForm name="confirmation" title="Вы уверены?" buttonText="Да" />
 
