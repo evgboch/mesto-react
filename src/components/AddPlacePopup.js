@@ -5,6 +5,11 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
   const [name, setName] = React.useState("");
   const [link, setLink] = React.useState("");
 
+  React.useEffect(() => {
+    setName("");
+    setLink("");
+  }, [isOpen]);
+
   function handleSubmit(evt) {
     evt.preventDefault();
 
@@ -12,9 +17,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
       name: name,
       link: link
     });
-
-    setName("");
-    setLink("");
   }
 
   function handleNameFieldChange(evt) {
