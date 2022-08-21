@@ -17,6 +17,10 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
+  // решил добавить индикаторы загрузки запросов в виде изменения текста внутри сабмит-баттона :)
+  const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
+  const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
+  const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -82,35 +86,47 @@ function App() {
   }
 
   function handleUpdateUser({name, about}) {
+    setProfileSumitionButtonText("Сохранение...");
+
     api.editUserInfo({name, about})
       .then((data) => {
         setCurrentUser(data);
         closeAllPopups();
+        setProfileSumitionButtonText("Сохранить");
       })
       .catch((err) => {
         console.log(err);
+        setProfileSumitionButtonText("Сохранить");
       });
   }
 
   function handleAddPlaceSubmit({name, link}) {
+    setPlaceSumitionButtonText("Создание...");
+
     api.addNewCard({name, link})
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+        setPlaceSumitionButtonText("Создать");
       })
       .catch((err) => {
         console.log(err);
+        setPlaceSumitionButtonText("Создать");
       });
   }
 
   function handleUpdateAvatar({avatar}) {
+    setAvatarSumitionButtonText("Сохранение...");
+
     api.editAvatar(avatar)
       .then((data) => {
         setCurrentUser(data);
         closeAllPopups();
+        setAvatarSumitionButtonText("Сохранить");
       })
       .catch((err) => {
         console.log(err);
+        setAvatarSumitionButtonText("Сохранить");
       });
   }
 
@@ -131,9 +147,9 @@ function App() {
 
         <Footer />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} buttonText={profileSumitionButtonText} />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} buttonText={placeSumitionButtonText} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} buttonText={avatarSumitionButtonText} />
         {/* <PopupWithForm name="confirmation" title="Вы уверены?" buttonText="Да" /> */}
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
       </div>
